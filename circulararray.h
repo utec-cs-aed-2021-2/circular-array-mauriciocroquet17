@@ -14,30 +14,29 @@ public:
     CircularArray(int _capacity);
     virtual ~CircularArray();
     int size(){
-        return back - front;
+        return front > back ? (capacity - front + back + 1) : (back - front + 1);
     }
     bool is_full(){
         return back == prev(front);
     }
     bool is_empty(){
-        return size() == 0?;
+        return this->size() == 0?;
     }
-    void clear();
     void resize(){
         capacity++;
     }
     void push_front(T data){
-        if(size() == 0){
-            resize();
+        if(this->size() == 0){
+            rethis->size();
             array[0] = data;
             size++;
         }
         else{
-            if(capacity == size())
+            if(capacity == this->size())
                 capacity+= 3;
             T temp = data;
             T hold;
-            for(int i = 0; i < size(); i++){
+            for(int i = 0; i < this->size(); i++){
                 hold = array[i];
                 array[i] = temp;
                 temp = hold;
@@ -46,14 +45,14 @@ public:
         front = data;
     }
     void push_back(T data){
-        if(size() == 0){
-            resize();
+        if(this->size() == 0){
+            rethis->size();
             array[0] = data;
         }
         else{
-            if(capacity == size())
+            if(capacity == this->size())
                 capacity+= 3;
-            array[size() + 1] = data;
+            array[this->size() + 1] = data;
         }
         back = data;
     }
@@ -66,9 +65,9 @@ public:
     }
     void sort()
     {
-        for (int gap = size()/2; gap > 0; gap /= 2)
+        for (int gap = this->size()/2; gap > 0; gap /= 2)
         {
-            for (int i = gap; i < size(); i += 1)
+            for (int i = gap; i < this->size(); i += 1)
             {
                 int temp = array[i];
                 int j;
@@ -83,12 +82,17 @@ public:
             array[i] = 0;
         }
     }
-    bool is_sorted();
-    void reverse();
+    bool is_sorted(){
+        for(int i = front; i < this->size(); i++){
+            if(array[i] > array[i+1]){
+                return false;
+            }
+        }
+    }
     string to_string(string sep=" ");
 
     void enqueue(int data){
-        if(is_full()) resize();
+        if(is_full()) rethis->size();
         back = next(back);
         array[back] = data;
         size++;
@@ -158,7 +162,7 @@ template <class T>
 string CircularArray<T>::to_string(string sep)
 {
     string result = ""; 
-    for (int i = 0; i < size(); i++)
+    for (int i = 0; i < this->size(); i++)
         result += std::to_string((*this)[i]) + sep;
     return result;    
 }
